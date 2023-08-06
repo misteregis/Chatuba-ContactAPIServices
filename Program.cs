@@ -1,3 +1,5 @@
+using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,7 +7,22 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.EnableAnnotations();
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "Chatuba Contact API",
+        Description = "A simple ASP.NET Core web API",
+        Contact = new OpenApiContact
+        {
+            Name = "Reginaldo Izid\u00F3rio",
+            Email = "misteregis@gmail.com",
+            Url = new Uri("https://github.com/misteregis")
+        }
+    });
+});
 
 var app = builder.Build();
 
